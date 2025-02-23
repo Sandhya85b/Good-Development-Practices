@@ -35,5 +35,16 @@ userRoute.put("/:id", async (req, res) => {
     res.status(500).json({ msg: "Failed to update user" });
   }
 });
+userRoute.put("/:id", async (req, res) => {
+  try {
+    const deleteUser = await userModel.findByIdAndDelete(req.params.id, {
+      new: true,
+    });
+    res.status(200).json({ msg: "User deleted sucessfull", deleteUser });
+  } catch (err) {
+    res.status(500).json({ msg: "Failed to delete user" });
+  }
+});
+
 
 module.exports = userRoute;
