@@ -13,6 +13,15 @@ userRoute.get("/", async (req, res) => {
     res.status(500).json({ msg: "Error in getting list of all users" });
   }
 });
+userRoute.post("/",async(req,res)=>{
+  try{
+   const newUser=new userModel(req.body)
+   await newUser.save()
+   res.status(201).json({msg:"User created successfull"})
+  }catch(err){
+    res.status(500).json({msg:"Failed to create User"})
+  }
+})
 
 
 module.exports = userRoute;
